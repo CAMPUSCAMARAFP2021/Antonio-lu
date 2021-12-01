@@ -2,13 +2,12 @@
 linkgral = "https://api.themoviedb.org/3/"
 apiKey = `?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`
 
-const getPeliculasPopulares = () => {
-    axios.get(`${linkgral}genre/movie/list${apiKey}`)
-    .then(res =>{
-        const peliculas = res.data.genres;
-        peliculas.forEach(generos => {
-           
-      
+const getPeliculasPopulares = () => {axios.get(`${linkgral}genre/movie/list${apiKey}`)
+.then(res =>{
+    const peliculass = res.data.genres;
+    peliculass.forEach(generos => {
+       
+  
     axios.get(`${linkgral}movie/popular${apiKey}`)
     .then(res =>{
         const peliculas = res.data.results;
