@@ -18,13 +18,11 @@
     color: white;
   }
 
-  #container{
-    width: min(100%, 1000px);
-    margin: 100px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  .table{
+    background-color: white;
+    padding: 5em;
+    border-radius: 20px;
+}
 
   .card{
     width: 230px;
