@@ -25,31 +25,26 @@ class DataProvider {
 
 class MoviesDataProvider extends DataProvider {
 
-
     endpoints = {
         genres: '/genres/movie/list',
         movies: '/movie',
         populars: '/movie/populars'
+    };
 
-    }
 
-
-    getMovies(size = 10){
-        return this.endPoint(this.endpoints.movies,{size} )
-        .then(pelis => this.attachGenres(pelis.results))
+    async getMovies(size = 10){
+        return pelis = await this.endPoint(this.endpoints.movies, { size })
     }
 
     attachGenres(pelis, genres){
-
+        return pelis;
     }
 
     getGenres(){
         return this.endPoint(this.endpoints.genres)
+        
     }
 
-    getMovieData(idMovie) {
-
-    }
 
 }
 
@@ -80,3 +75,5 @@ class MoviesFinder {
     }
 }
 
+movie = new MoviesFinder.render()
+console.log(movie)
