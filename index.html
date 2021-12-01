@@ -11,8 +11,15 @@
     <title>Pelisplus</title>
 </head>
 <body>
+   <br>
+  <form id="form">
+    <input type="text" name="buscador" id="buscador-top" onkeyup="Search()"  placeholder="Busca una pelicula" minlength="3">
+    <input type="button" value="Buscar" id="btn-top">
+  </form>
+  <br>
   <div class="container">
     <table border="1" class="table" id="tablaprueba">
+     
           <tr>
             <th>Imagen</th>
             <th>Nombres</th>
@@ -21,5 +28,6 @@
           </tr>
       </table>
   </div>
+  
 </body>
 </html>
