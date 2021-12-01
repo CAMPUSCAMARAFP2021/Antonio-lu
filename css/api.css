@@ -20,23 +20,77 @@
 
   .table{
     background-color: white;
-    padding: 5em;
+    padding: 3em;
     border-radius: 20px;
 }
 
-  .card{
-    width: 230px;
-    margin-top: 100px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
+#buscador-top{
+  margin-left: 50%;
+  width: 228px;
+  
+  size: 31px;
+}
+/*-- Comienzo menu flotante --*/
+#menuflotante {
+  float:left;
+  width: 1256px;
+  padding: 3px;
+  background:transparent url(http://1.bp.blogspot.com/_blABMJBbYJs/SqMHAWryvrI/AAAAAAAAGsY/BTtJWVael5E/S1600-R/0.jpg) repeat-x scroll left top;
+  position:fixed;bottom:0px;
+  height:23px;
   }
-
-  .card img {
-    width: 100%;
+  
+  #menuflotante li {
+  float:left;
+  display:block;
+  background:url(http://4.bp.blogspot.com/_blABMJBbYJs/SqMGKDpipBI/AAAAAAAAGsQ/p_k2IAgRcy4/S1600-R/3.jpg) no-repeat right 8px;
+  padding:2px 20px 0;
   }
-
-  .card span{
-    color: #6e6e6e;
-    font-weight: 500;
+  
+  #menuflotante ul {
+  margin:0;
+  padding:0;
+  line-height:normal;
+  list-style:none;
   }
+  
+  #menuflotante a:hover {
+  padding-top: 2px;
+  color: #009999;
+  }
+  
+  #menuflotante a {
+  display:block;
+  float:left;
+  text-decoration:none;
+  font:12px Arial;
+  color:#FFFFFF;
+  }
+  
+  #menuflotante .current_page_item {
+  margin:0;
+  color:#FFFFFF;
+  }
+  
+  #search-box {
+  height: 17px;
+  width: 214px;
+  background:transparent;
+  color: #009999;
+  border: 2px groove #cccccc;
+  }
+  
+  #search-btn{
+  background: transparent;
+  border: 1px groove #cccccc;
+  color: #ffffff;
+  }
+  
+  #search-btn:hover{
+  background: #009999;
+  }
+  
+  #search-btn:active{
+  background: #006b6b;
+  }
+  
