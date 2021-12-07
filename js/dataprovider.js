@@ -38,16 +38,7 @@ class MoviesDataProvider extends DataProvider {
 
 
     async getMovies(){
-        return pelis = await this.endPoint(this.endpoints.populars)
-        
-        //Devolucion de las peliculas con todos los datos propios
-
-        .then(res =>{
-            const peliculas = res.results;
-            peliculas.forEach(pelicula => {
-                console.log(pelicula)
-            })
-        })
+        var pelis =  this.endPoint(this.endpoints.populars)
     }
 
 
@@ -56,25 +47,23 @@ class MoviesDataProvider extends DataProvider {
        
     }
 
-    attachGenres(pelis){
-        return pelis;
+    attachGenres(pelis,genres){
+        return pelis + genres;
     }
 
      getGenres(){
         const res =  this.endPoint(this.endpoints.genres)
-        
+        return res
         //Nos devuelve los resultados de la promesa que son los generos con todos los datos
-        .then(ress =>{
-            const peliculas = ress.genres;
-            peliculas.forEach(pelicula => {
-                console.log(pelicula.name)
-            })
-        })
+       
 }
 }
 ejemplo = new MoviesDataProvider
 
+class print{
+    
 
+}
 
 class MoviesFinder {
 
@@ -86,8 +75,8 @@ class MoviesFinder {
     }
     
     async loadData() {
-       pelis = await this.provider.getMovies();
-       genres = await this.provider.getGenres();
+      var pelis = await this.provider.getMovies();
+      var genres = this.provider.getGenres();
        this.pelis = this.provider.attachGenres(pelis, genres)
     }
 
@@ -101,5 +90,8 @@ class MoviesFinder {
         return document.createElement('div').append(img).innerHTML = peli.title;
     }
 }
+es = new MoviesFinder();
+es.getMovies
+
 
 
