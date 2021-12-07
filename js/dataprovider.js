@@ -39,21 +39,31 @@ class MoviesDataProvider extends DataProvider {
 
     async getMovies(){
         return pelis = await this.endPoint(this.endpoints.populars)
+        
+        //Devolucion de las peliculas con todos los datos propios
 
+        .then(res =>{
+            const peliculas = res.results;
+            peliculas.forEach(pelicula => {
+                console.log(pelicula)
+            })
+        })
     }
+
 
      getpopMovies(){
         return pelispop =  this.endPoint(this.endpoints.populars)
+       
     }
 
     attachGenres(pelis){
         return pelis;
     }
 
-    async getGenres(){
-        const res = await this.endPoint(this.endpoints.genres)
-
-        //Nos devuelve los resultados de la promesa
+     getGenres(){
+        const res =  this.endPoint(this.endpoints.genres)
+        
+        //Nos devuelve los resultados de la promesa que son los generos con todos los datos
         .then(ress =>{
             const peliculas = ress.genres;
             peliculas.forEach(pelicula => {
