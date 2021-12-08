@@ -39,11 +39,12 @@ class MoviesDataProvider extends DataProvider {
 
     async getMovies(){
         var pelis =  this.endPoint(this.endpoints.populars)
+        return pelis
     }
 
 
      getpopMovies(){
-        return pelispop =  this.endPoint(this.endpoints.populars)
+        return pelispop =this.endPoint(this.endpoints.populars)
        
     }
 
@@ -54,14 +55,14 @@ class MoviesDataProvider extends DataProvider {
      getGenres(){
         const res =  this.endPoint(this.endpoints.genres)
         return res
-        //Nos devuelve los resultados de la promesa que son los generos con todos los datos
-       
-}
+    }
+
+
 }
 ejemplo = new MoviesDataProvider
 
 class print{
-    
+
 
 }
 
