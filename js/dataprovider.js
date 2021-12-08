@@ -1,8 +1,8 @@
 class DataProvider {
-    
+
     linkapi = "https://api.themoviedb.org/3/"
     apiKey = `?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`
-    linkimg =`https://image.tmdb.org/t/p/w200/`
+    linkimg = `https://image.tmdb.org/t/p/w200/`
 
     link = "https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES"
 
@@ -11,8 +11,8 @@ class DataProvider {
         return this.call(url, params)
     }
 
-    async call (url) {
-      try {
+    async call(url) {
+        try {
             const res = await fetch(url)
             return await res.json()
         } catch (error) {
@@ -20,7 +20,7 @@ class DataProvider {
         }
     }
 
-    errorHandle(error){
+    errorHandle(error) {
         throw new Error()
     }
 
@@ -37,31 +37,45 @@ class MoviesDataProvider extends DataProvider {
     };
 
 
-    async getMovies(){
-        var pelis =  this.endPoint(this.endpoints.populars)
+    async getMovies() {
+        const pelis = this.endPoint(this.endpoints.populars)
         return pelis
     }
 
 
-     getpopMovies(){
-        return pelispop =this.endPoint(this.endpoints.populars)
-       
+    getpopMovies() {
+        const pelispop = this.endPoint(this.endpoints.populars)
+        return pelispop
     }
 
-    attachGenres(pelis,genres){
-        return pelis + genres;
+    attachGenres() {
+        this.getGenres().then(res => {
+            const peliculas = res.genres;
+            peliculas.forEach(generos => {
+                const idGen = generos.id
+
+                this.getMovies().then(res => {
+                    const peliculas = res.results;
+                    peliculas.forEach(pelis => {
+                        const idPelis = pelis.genre_ids[0]
+                        if (idGen === idPelis) {
+                            console.log(pelis.title)
+                        }
+                    })
+                })
+            })
+        })
     }
 
-     getGenres(){
-        const res =  this.endPoint(this.endpoints.genres)
+    getGenres() {
+        const res = this.endPoint(this.endpoints.genres)
         return res
     }
-
 
 }
 ejemplo = new MoviesDataProvider
 
-class print{
+class print {
 
 
 }
@@ -74,11 +88,11 @@ class MoviesFinder {
         this.provider = new MoviesDataProvider();
         this.loadData();
     }
-    
+
     async loadData() {
-      var pelis = await this.provider.getMovies();
-      var genres = this.provider.getGenres();
-       this.pelis = this.provider.attachGenres(pelis, genres)
+        var pelis = await this.provider.getMovies();
+        var genres = this.provider.getGenres();
+        this.pelis = this.provider.attachGenres(pelis, genres)
     }
 
     render() {
