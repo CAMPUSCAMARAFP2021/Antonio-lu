@@ -4,7 +4,7 @@ class DataProvider {
     apiKey = `?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES`
     linkimg = `https://image.tmdb.org/t/p/w200/`
 
-    link = "https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=es-ES"
+
 
     endPoint(endPoint, params) {
         const url = this.linkapi + endPoint + this.apiKey
@@ -41,44 +41,28 @@ class MoviesDataProvider extends DataProvider {
         const pelis = this.endPoint(this.endpoints.populars)
         return pelis
     }
-
-
-    getpopMovies() {
-        const pelispop = this.endPoint(this.endpoints.populars)
-        return pelispop
-    }
-
-
-    getIdgenre() {
-
-        const resultados = this.getGenres().then(res => {
-            const peliculas = res.genres;
-            peliculas.forEach(pelis => {
-                return pelis.id
-            })
-        })
-
-    }
-
-    attachGenres() {
-
+    getid() {
         this.getGenres().then(res => {
             const peliculas = res.genres;
             peliculas.forEach(generos => {
-                const idGen = generos.id
-
-                this.getMovies().then(res => {
-                    const peliculas = res.results;
-                    peliculas.forEach(pelis => {
-                        const idPelis = pelis.genre_ids[0]
-                        if (idGen === idPelis) {
-                            console.log(pelis.title)
-                            console.log(generos.name)
-                        }
-                    })
-                })
+                return (generos.id)
             })
         })
+    }
+    getPel() {
+        this.getMovies().then(res => {
+            const peliculas = res.results;
+            peliculas.forEach(pelis => {
+                const idPelis = pelis.genre_ids[0]
+               
+                    console.log(pelis.title)
+                   
+                
+            })
+        })
+    }
+
+    attachGenres(pelis, genero) {
 
     }
 
