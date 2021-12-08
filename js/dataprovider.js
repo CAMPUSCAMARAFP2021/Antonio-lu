@@ -48,7 +48,20 @@ class MoviesDataProvider extends DataProvider {
         return pelispop
     }
 
+
+    getIdgenre() {
+
+        const resultados = this.getGenres().then(res => {
+            const peliculas = res.genres;
+            peliculas.forEach(pelis => {
+                return pelis.id
+            })
+        })
+
+    }
+
     attachGenres() {
+
         this.getGenres().then(res => {
             const peliculas = res.genres;
             peliculas.forEach(generos => {
@@ -60,11 +73,13 @@ class MoviesDataProvider extends DataProvider {
                         const idPelis = pelis.genre_ids[0]
                         if (idGen === idPelis) {
                             console.log(pelis.title)
+                            console.log(generos.name)
                         }
                     })
                 })
             })
         })
+
     }
 
     getGenres() {
