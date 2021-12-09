@@ -41,43 +41,33 @@ class MoviesDataProvider extends DataProvider {
         const pelis = this.endPoint(this.endpoints.populars)
         return pelis
     }
-    getid() {
-        this.getGenres().then(res => {
-            const peliculas = res.genres;
-            peliculas.forEach(generos => {
-                return (generos.id)
-            })
-        })
-    }
-    getPel() {
-        this.getMovies().then(res => {
-            const peliculas = res.results;
-            peliculas.forEach(pelis => {
-                const idPelis = pelis.genre_ids[0]
-               
-                    console.log(pelis.title)
-                   
-                
-            })
-        })
-    }
-
-    attachGenres(pelis, genero) {
-
-    }
+   
+    
 
     getGenres() {
         const res = this.endPoint(this.endpoints.genres)
         return res
     }
-
+    
+     getMoviesWithGenres = async () => {
+        // espero por la lista de generos que usando destructuring lo saco directamente encadenando un then;
+        const genres = await this.getGenres().then(({genres}) => genres);  
+        // devuelvo la lista de pelis transformada llamando al metodo siguiente por cada peli.
+        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie,genres)))
+    } 
+    
+    
+    
+    // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
+     attachGenresToMovie = (movie, genres) => {
+       movie.genres = movie.genres.map((genreId => genres.find(genre => genre.id === genreId)));
+       return movie;
+    }
 }
 ejemplo = new MoviesDataProvider
 
-class print {
 
 
-}
 
 class MoviesFinder {
 
@@ -91,7 +81,7 @@ class MoviesFinder {
     async loadData() {
         var pelis = await this.provider.getMovies();
         var genres = this.provider.getGenres();
-        this.pelis = this.provider.attachGenres(pelis, genres)
+       // this.pelis = this.provider.getMoviesWithGenres(pelis, genres)
     }
 
     render() {
