@@ -60,7 +60,7 @@ class MoviesDataProvider extends DataProvider {
     
     // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
      attachGenresToMovie = (movie, genres) => {
-       movie.genres = movie.genres.map((genreId => genres.find(genre => genre.id === genreId)));
+       movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
        return movie;
     }
 }
