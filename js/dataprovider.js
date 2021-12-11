@@ -12,7 +12,7 @@ class DataProvider {
     }
 
     linkimgs(endPoint) {
-        const url = this.linkimg + endPoint 
+        const url = this.linkimg + endPoint
         return this.call(url)
     }
 
@@ -78,7 +78,7 @@ class MoviesDataProvider extends DataProvider {
     }
 
     getMoviestitleGenre = async () => {
-        pelisGenre = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.genre_ids[0].name))
+       var pelisGenre = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.genre_ids[0].name))
         return pelisGenre
     }
 
@@ -92,10 +92,10 @@ class MoviesDataProvider extends DataProvider {
         return pelisTitle
     }
 
-    async getimg (){
+    async getimg() {
         const img = this.getSrcPelis().then(respuesta => this.linkimgs(respuesta).then(resp => resp))
         return img
-        }
+    }
 
     // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
     attachGenresToMovie = (movie, genres) => {
@@ -103,18 +103,70 @@ class MoviesDataProvider extends DataProvider {
         return movie;
     }
     imprimirtitulo() {
-        const imagen = document.createElement('p')
+        const titulo = document.createElement('h1')
         const tit = this.getMoviestitle().then(resp => {
-            imagen.textContent =resp
+            titulo.textContent = resp
             resp.map((resp) =>
-                document.getElementById("tablaprueba").insertRow(-1).innerHTML = `<td>${resp}</td>`
+                document.getElementById("tablaprueba").insertRow(-1).innerHTML = `<td></td><td>${resp}</td>`
             )
-            
-            document.body.appendChild(imagen);
+
+            document.body.appendChild(titulo);
         }
-            )
+        )
+
+    }
+    imprimirgenres(){
+         const titulo = document.createElement('h1')
+        
+
         
     }
+    insertartitulo(){
+        var x = document.createElement("TD")
+        x.id = "a"
+        document.getElementById("myRow").appendChild(x)
+        
+        var row = document.getElementById("tabla");
+        
+        const tit = this.getMoviestitle().then(resp => {
+            
+            resp.map((resp) =>{
+                var y = document.createElement("TR");
+                var t = document.createTextNode(resp);
+                y.appendChild(t);
+                document.getElementById("a").appendChild(y);               
+            }
+            )
+           
+        
+        })
+      
+    }
+
+
+    insertargener(){
+        var x = document.createElement("TD")
+        x.id = "b"
+        document.getElementById("myRow").appendChild(x)
+        const tit = this.getMoviestitleGenre().then(resp => {
+            
+            resp.map((resp) =>{
+                var y = document.createElement("TR");
+                var t = document.createTextNode(resp);
+                y.appendChild(t);
+                document.getElementById("b").appendChild(y);                
+            }
+            )
+           
+        
+        })
+       
+       
+       
+      
+    }
+
+    
 }
 
 ejemplo = new MoviesDataProvider
