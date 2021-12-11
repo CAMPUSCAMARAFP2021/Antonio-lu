@@ -41,32 +41,61 @@ class MoviesDataProvider extends DataProvider {
         const pelis = this.endPoint(this.endpoints.populars)
         return pelis
     }
-   
-    
+
+
 
     getGenres() {
         const res = this.endPoint(this.endpoints.genres)
         return res
     }
-    
-     getMoviesWithGenres = async () => {
+
+    getMoviesWithGenres = async () => {
         // espero por la lista de generos que usando destructuring lo saco directamente encadenando un then;
-        const genres = await this.getGenres().then(({genres}) => genres);  
+        const genres = await this.getGenres().then(({ genres }) => genres);
         // devuelvo la lista de pelis transformada llamando al metodo siguiente por cada peli.
-        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie,genres)))
-    } 
-    
-    
-    
+        return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+    }
+
+    getgenreMoviesname = async () => {
+        const pelis = await this.getMoviesWithGenres()
+        pelis.forEach(element => {
+            return element.genre_ids[0].name
+        });
+    }
+
+    getMoviestitleGenre = async () => {
+        pelisGenre = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.genre_ids[0].name))
+        return pelisGenre
+    }
+
+    getMoviestitle = async () => {
+       const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.original_title))
+        return pelisTitle
+    }
+
+    getSrcPelis = async() => {
+        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.backdrop_path))
+        return pelisTitle
+    }
+
+
     // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
-     attachGenresToMovie = (movie, genres) => {
-       movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
-       return movie;
+    attachGenresToMovie = (movie, genres) => {
+        movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
+        return movie;
     }
 }
+
 ejemplo = new MoviesDataProvider
 
+class imprimir {
 
+    imprimirImagenes () {
+        imagen = document.createElement('p')
+        
+    }
+
+}
 
 
 class MoviesFinder {
@@ -81,7 +110,7 @@ class MoviesFinder {
     async loadData() {
         var pelis = await this.provider.getMovies();
         var genres = this.provider.getGenres();
-       // this.pelis = this.provider.getMoviesWithGenres(pelis, genres)
+        // this.pelis = this.provider.getMoviesWithGenres(pelis, genres)
     }
 
     render() {
