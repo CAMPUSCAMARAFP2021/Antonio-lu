@@ -14,10 +14,8 @@ const getPeliculasPopulares = () => {
         const peliculas = res.data.results;
         peliculas.forEach(pelicula => {
             if (pelicula.genre_ids[0] == generos.id) {
-                document.getElementById("tablaprueba").insertRow(-1).innerHTML = `<td><img src="${linkimg}${pelicula.poster_path}" alt=""></td><td>${pelicula.title}</td><td>${pelicula.overview}</td><td>${generos.name}</td>`;
+                document.getElementById("tabla").insertRow(-1).innerHTML = `<td><img src="${linkimg}${pelicula.poster_path}" alt=""></td><td>${pelicula.title}</td><td>${pelicula.overview}</td><td>${generos.name}</td>`;
              }
-             
-           
         })
     })
 })

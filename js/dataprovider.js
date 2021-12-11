@@ -78,12 +78,40 @@ class MoviesDataProvider extends DataProvider {
     }
 
     getMoviestitleGenre = async () => {
-       var pelisGenre = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.genre_ids[0].name))
-        return pelisGenre
+        var array = []
+        const pelisGenre = await this.getMoviestitle()
+
+        const pelisTitle = await this.getMoviesWithGenres()
+
+        var result = pelisGenre.map(function (e) {
+            return Object.assign({}, e, pelisTitle.map(resy => resy))
+        })
+        console.log(result)
+        return this.getMoviesWithGenres()
     }
 
+
+    async imprimirttodosdatos() {
+        var table = document.getElementById("tabla");
+
+        // Create an empty <tr> element and add it to the 1st position of the table:
+        
+
+        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => {respuesta.original_title + " , " + respuesta.genre_ids[0].name + " , " + respuesta.overview
+            var row = table.insertRow(1);
+            row.textContent = respuesta.original_title
+            var rows = row.insertCell();
+            rows.textContent = respuesta.genre_ids[0].name
+            var rowa = row.insertCell();
+            rowa.textContent = respuesta.overview
+        })
+        )
+    }
+        
+
     getMoviestitle = async () => {
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.original_title))
+
+        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.original_title + " , " + respuesta.genre_ids[0].name + " , " + respuesta.overview))
         return pelisTitle
     }
 
@@ -102,71 +130,14 @@ class MoviesDataProvider extends DataProvider {
         movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
         return movie;
     }
-    imprimirtitulo() {
-        const titulo = document.createElement('h1')
-        const tit = this.getMoviestitle().then(resp => {
-            titulo.textContent = resp
-            resp.map((resp) =>
-                document.getElementById("tablaprueba").insertRow(-1).innerHTML = `<td></td><td>${resp}</td>`
-            )
-
-            document.body.appendChild(titulo);
-        }
-        )
-
-    }
-    imprimirgenres(){
-         const titulo = document.createElement('h1')
-        
-
-        
-    }
-    insertartitulo(){
-        var x = document.createElement("TD")
-        x.id = "a"
-        document.getElementById("myRow").appendChild(x)
-        
-        var row = document.getElementById("tabla");
-        
-        const tit = this.getMoviestitle().then(resp => {
-            
-            resp.map((resp) =>{
-                var y = document.createElement("TR");
-                var t = document.createTextNode(resp);
-                y.appendChild(t);
-                document.getElementById("a").appendChild(y);               
-            }
-            )
-           
-        
-        })
-      
+    prueba() {
+        var pelisGenre = this.getMoviesWithGenres().then(resu => resu.map((res, m) => {
+            res.original_title
+            m.genre_ids[0].name
+        }))
+        return pelisGenre
     }
 
-
-    insertargener(){
-        var x = document.createElement("TD")
-        x.id = "b"
-        document.getElementById("myRow").appendChild(x)
-        const tit = this.getMoviestitleGenre().then(resp => {
-            
-            resp.map((resp) =>{
-                var y = document.createElement("TR");
-                var t = document.createTextNode(resp);
-                y.appendChild(t);
-                document.getElementById("b").appendChild(y);                
-            }
-            )
-           
-        
-        })
-       
-       
-       
-      
-    }
-
-    
 }
 
 ejemplo = new MoviesDataProvider
@@ -214,3 +185,10 @@ es.getMovies
 
 
 
+var nameArr = [{ "name": "john" }, { "name": "carl" }, { "name": "peter" }]
+var ageArr = [{ "age": "22" }, { "age": "21" }, { "age": "32" }]
+
+var result = nameArr.map(function (e, i) {
+    return Object.assign({}, e, ageArr[i])
+})
+console.log(result)
