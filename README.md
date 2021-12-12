@@ -17,5 +17,5 @@ docker-compose up
 ## Preview
 Este es el preview de nuestra tabla de peliculas.
 
-![](/img/)
+![](/img/Preview.PNG)
 
