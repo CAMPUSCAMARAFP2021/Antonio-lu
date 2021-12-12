@@ -37,8 +37,6 @@ class DataProvider {
 
 }
 
-hola = new DataProvider
-
 class MoviesDataProvider extends DataProvider {
 
     endpoints = {
@@ -56,14 +54,11 @@ class MoviesDataProvider extends DataProvider {
         return peliSearch
     }
 
-
     async getimg() {
         const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.backdrop_path))
         const img = this.endPoint(pelisTitle)
         return img
     }
-
-
 
     getGenres() {
         const res = this.endPoint(this.endpoints.genres, this.endpoints.query)
@@ -71,12 +66,10 @@ class MoviesDataProvider extends DataProvider {
     }
 
     getMoviesWithGenres = async () => {
-        // espero por la lista de generos que usando destructuring lo saco directamente encadenando un then;
         const genres = await this.getGenres().then(({ genres }) => genres);
-        // devuelvo la lista de pelis transformada llamando al metodo siguiente por cada peli.
         return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
     }
-    // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
+
     attachGenresToMovie = (movie, genres) => {
         movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
         return movie;
@@ -108,38 +101,11 @@ class MoviesDataProvider extends DataProvider {
 
                 var rows = rowas.insertCell();
                 rows.textContent = respuesta.popularity
+                
 
             })
         })
     }
-
-
-    getMoviestitle = async () => {
-
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.original_title + " , " + respuesta.genre_ids[0].name + " , " + respuesta.overview))
-        return pelisTitle
-    }
-
-    getSrcPelis = async () => {
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.backdrop_path))
-        return pelisTitle
-    }
-
-    async getimg() {
-        const img = this.getSrcPelis().then(respuesta => this.linkimgs(respuesta).then(resp => resp))
-        return img
-    }
-
-
-
-    prueba() {
-        var pelisGenre = this.getMoviesWithGenres().then(resu => resu.map((res, m) => {
-            res.original_title
-            m.genre_ids[0].name
-        }))
-        return pelisGenre
-    }
-
 }
 
 ejemplo = new MoviesDataProvider
