@@ -11,6 +11,11 @@ class DataProvider {
         return this.call(url, params)
     }
 
+    endPoint(endPoint, endpoints) {
+        const url = this.linkapi + endPoint + this.apiKey + endpoints
+        return this.call(url)
+    }
+
     linkimgs(endPoint) {
         const url = this.linkimg + endPoint
         return this.call(url)
@@ -39,13 +44,23 @@ class MoviesDataProvider extends DataProvider {
     endpoints = {
         genres: '/genre/movie/list',
         movies: 'movie',
-        populars: 'movie/popular'
+        populars: 'movie/popular',
+        search : `search/movie`,
+        query:'&query=Venom'
     };
 
 
     getMovies() {
-        const pelis = this.endPoint(this.endpoints.populars)
-        return pelis
+        const peliSearch = this.endPoint(this.endpoints.search, this.endpoints.query)
+        return peliSearch
+    }
+
+    async getSearch(){
+        const peliUser = document.getElementById('buscador-top').value
+        console.log(peliUser)
+       
+        const respuesta = await this.endPoint(this.endpoints.search, this.endpoints.query, peliUser).then(resu => resu)
+        return respuesta
     }
 
     async getimg() {
@@ -57,7 +72,7 @@ class MoviesDataProvider extends DataProvider {
 
 
     getGenres() {
-        const res = this.endPoint(this.endpoints.genres)
+        const res = this.endPoint(this.endpoints.genres, this.endpoints.query)
         return res
     }
 
@@ -65,7 +80,7 @@ class MoviesDataProvider extends DataProvider {
         // espero por la lista de generos que usando destructuring lo saco directamente encadenando un then;
         const genres = await this.getGenres().then(({ genres }) => genres);
         // devuelvo la lista de pelis transformada llamando al metodo siguiente por cada peli.
-        return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie, genres)))
     }
 
 
@@ -86,18 +101,14 @@ class MoviesDataProvider extends DataProvider {
         var result = pelisGenre.map(function (e) {
             return Object.assign({}, e, pelisTitle.map(resy => resy))
         })
-        console.log(result)
+      
         return this.getMoviesWithGenres()
     }
 
 
     async imprimirttodosdatos() {
-        var table = document.getElementById("tabla");
-
-        // Create an empty <tr> element and add it to the 1st position of the table:
-        
-
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => {respuesta.original_title + " , " + respuesta.genre_ids[0].name + " , " + respuesta.overview
+        var table = document.getElementById("tabla")
+        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => {
             var row = table.insertRow(1);
             row.textContent = respuesta.original_title
             var rows = row.insertCell();
@@ -106,6 +117,7 @@ class MoviesDataProvider extends DataProvider {
             rowa.textContent = respuesta.overview
         })
         )
+        
     }
         
 
@@ -130,6 +142,7 @@ class MoviesDataProvider extends DataProvider {
         movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
         return movie;
     }
+
     prueba() {
         var pelisGenre = this.getMoviesWithGenres().then(resu => resu.map((res, m) => {
             res.original_title
@@ -192,3 +205,8 @@ var result = nameArr.map(function (e, i) {
     return Object.assign({}, e, ageArr[i])
 })
 console.log(result)
+
+
+resultados = ()=> {
+ejemplo.imprimirttodosdatos()
+}
