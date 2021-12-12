@@ -11,8 +11,8 @@ class DataProvider {
         return this.call(url, params)
     }
 
-    endPoint(endPoint, endpoints) {
-        const url = this.linkapi + endPoint + this.apiKey + endpoints
+    endPoints(endPoint, endpoints, movie) {
+        const url = this.linkapi + endPoint + this.apiKey + endpoints + movie
         return this.call(url)
     }
 
@@ -45,22 +45,17 @@ class MoviesDataProvider extends DataProvider {
         genres: '/genre/movie/list',
         movies: 'movie',
         populars: 'movie/popular',
-        search : `search/movie`,
-        query:`&query=the avengers`
+        search: `search/movie`,
+        query: `&query=`
     };
 
 
     getMovies() {
-        const peliSearch = this.endPoint(this.endpoints.search, this.endpoints.query)
+        const peliUser = document.getElementById('buscador-top').value
+        const peliSearch = this.endPoints(this.endpoints.search, this.endpoints.query, peliUser)
         return peliSearch
     }
 
-    async getSearch(){
-        const peliUser = document.getElementById('buscador-top').value
-        console.log(peliUser)
-        const respuesta = await this.endPoint(this.endpoints.search, this.endpoints.query, peliUser).then(resu => resu)
-        return respuesta
-    }
 
     async getimg() {
         const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.backdrop_path))
@@ -79,39 +74,34 @@ class MoviesDataProvider extends DataProvider {
         // espero por la lista de generos que usando destructuring lo saco directamente encadenando un then;
         const genres = await this.getGenres().then(({ genres }) => genres);
         // devuelvo la lista de pelis transformada llamando al metodo siguiente por cada peli.
-        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+        return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+    }
+    // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
+    attachGenresToMovie = (movie, genres) => {
+        movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
+        return movie;
     }
 
 
-
-    getgenreMoviesname = async () => {
-        const pelis = await this.getMoviesWithGenres()
-        pelis.forEach(element => {
-            return element.genre_ids[0].name
-        });
-    }
-
-
-
-
-     imprimirttodosdatos() {
+    imprimirttodosdatos() {
         var table = document.getElementById("tabla")
-        const pelisTitle =  this.getMoviesWithGenres().then((respuesta) => {respuesta; respuesta.map(respuesta => {
-            var row = table.insertRow(1);
-            row.textContent = respuesta.original_title
-            
-            var rowa = row.insertCell();
-            rowa.textContent = respuesta.genre_ids[0].name
+        const pelisTitle = this.getMoviesWithGenres().then((respuesta) => {
+            respuesta; respuesta.map(respuesta => {
+                var row = table.insertRow(1);
+                row.id = "row1"
+                row.textContent = respuesta.original_title
 
-            var rowa = row.insertCell();
-            rowa.textContent = respuesta.overview
+                var rowa = row.insertCell();
+                rowa.textContent = respuesta.genre_ids[0].name
+                rowa.id = "row2"
+
+                var rows = row.insertCell();
+                rows.textContent = respuesta.overview
+                rows.id = "row1"
+            })
         })
-            }    )
-    
-
-        
     }
-        
+
 
     getMoviestitle = async () => {
 
@@ -129,11 +119,7 @@ class MoviesDataProvider extends DataProvider {
         return img
     }
 
-    // este metodo cambia el array de ids de generos de un "movie" por un array de generos ( objeto )
-    attachGenresToMovie = (movie, genres) => {
-        movie.genre_ids = movie.genre_ids.map((genreId => genres.find(genre => genre.id === genreId)));
-        return movie;
-    }
+
 
     prueba() {
         var pelisGenre = this.getMoviesWithGenres().then(resu => resu.map((res, m) => {
