@@ -87,15 +87,23 @@ class MoviesDataProvider extends DataProvider {
         var table = document.getElementById("tabla")
         const pelisTitle = this.getMoviesWithGenres().then((respuesta) => {
             respuesta; respuesta.map(respuesta => {
-                var row = table.insertRow(1);
+
+                var rowas = table.insertRow(1);
+                var src = respuesta.poster_path
+                var img = document.createElement('img')
+                img.src = this.linkimg+src
+                rowas.appendChild (img)
+                rowas.id = "row2"
+
+                var row = rowas.insertCell();
                 row.id = "row1"
                 row.textContent = respuesta.original_title
 
-                var rowa = row.insertCell();
+                var rowa = rowas.insertCell();
                 rowa.textContent = respuesta.genre_ids[0].name
                 rowa.id = "row2"
 
-                var rows = row.insertCell();
+                var rows = rowas.insertCell();
                 rows.textContent = respuesta.overview
                 rows.id = "row1"
             })
