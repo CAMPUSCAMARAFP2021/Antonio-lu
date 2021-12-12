@@ -87,17 +87,28 @@ class MoviesDataProvider extends DataProvider {
         var table = document.getElementById("tabla")
         const pelisTitle = this.getMoviesWithGenres().then((respuesta) => {
             respuesta; respuesta.map(respuesta => {
-                var row = table.insertRow(1);
-                row.id = "row1"
+
+                var rowas = table.insertRow(1);
+                var src = respuesta.poster_path
+                var img = document.createElement('img')
+                img.src = this.linkimg + src
+                rowas.appendChild(img)
+                
+                var row = rowas.insertCell();
                 row.textContent = respuesta.original_title
 
-                var rowa = row.insertCell();
+                var rowa = rowas.insertCell();
                 rowa.textContent = respuesta.genre_ids[0].name
-                rowa.id = "row2"
-
-                var rows = row.insertCell();
+                
+                var rows = rowas.insertCell();
                 rows.textContent = respuesta.overview
-                rows.id = "row1"
+
+                var rows = rowas.insertCell();
+                rows.textContent = respuesta.vote_average
+
+                var rows = rowas.insertCell();
+                rows.textContent = respuesta.popularity
+
             })
         })
     }
@@ -132,47 +143,4 @@ class MoviesDataProvider extends DataProvider {
 }
 
 ejemplo = new MoviesDataProvider
-
-class imprimir extends MoviesDataProvider {
-
-    imprimirImagenes() {
-
-        const imagen = document.createElement('img')
-        imagen.src = MoviesDataProvider.getSrcPelis
-        document.body.appendChild(imagen);
-    }
-
-}
-
-hola = new imprimir
-
-class MoviesFinder {
-
-    pelis
-
-    constructor() {
-        this.provider = new MoviesDataProvider();
-        this.loadData();
-    }
-
-    async loadData() {
-        var pelis = await this.provider.getMovies();
-        var genres = this.provider.getGenres();
-        // this.pelis = this.provider.getMoviesWithGenres(pelis, genres)
-    }
-
-    render() {
-        renderedPelis = this.pelis.map(this.renderPeli)
-    }
-
-    renderPeli(peli) {
-        const img = document.createElement('img').src = peli.poster_path;
-        img.alt = peli.title;
-        return document.createElement('div').append(img).innerHTML = peli.title;
-    }
-}
-es = new MoviesFinder();
-es.getMovies
-
-
 
