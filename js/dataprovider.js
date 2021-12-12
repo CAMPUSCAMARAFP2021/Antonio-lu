@@ -46,7 +46,7 @@ class MoviesDataProvider extends DataProvider {
         movies: 'movie',
         populars: 'movie/popular',
         search : `search/movie`,
-        query:'&query=Venom'
+        query:`&query=the avengers`
     };
 
 
@@ -58,7 +58,6 @@ class MoviesDataProvider extends DataProvider {
     async getSearch(){
         const peliUser = document.getElementById('buscador-top').value
         console.log(peliUser)
-       
         const respuesta = await this.endPoint(this.endpoints.search, this.endpoints.query, peliUser).then(resu => resu)
         return respuesta
     }
@@ -92,31 +91,24 @@ class MoviesDataProvider extends DataProvider {
         });
     }
 
-    getMoviestitleGenre = async () => {
-        var array = []
-        const pelisGenre = await this.getMoviestitle()
-
-        const pelisTitle = await this.getMoviesWithGenres()
-
-        var result = pelisGenre.map(function (e) {
-            return Object.assign({}, e, pelisTitle.map(resy => resy))
-        })
-      
-        return this.getMoviesWithGenres()
-    }
 
 
-    async imprimirttodosdatos() {
+
+     imprimirttodosdatos() {
         var table = document.getElementById("tabla")
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => {
+        const pelisTitle =  this.getMoviesWithGenres().then((respuesta) => {respuesta; respuesta.map(respuesta => {
             var row = table.insertRow(1);
             row.textContent = respuesta.original_title
-            var rows = row.insertCell();
-            rows.textContent = respuesta.genre_ids[0].name
+            
+            var rowa = row.insertCell();
+            rowa.textContent = respuesta.genre_ids[0].name
+
             var rowa = row.insertCell();
             rowa.textContent = respuesta.overview
         })
-        )
+            }    )
+    
+
         
     }
         
@@ -198,15 +190,3 @@ es.getMovies
 
 
 
-var nameArr = [{ "name": "john" }, { "name": "carl" }, { "name": "peter" }]
-var ageArr = [{ "age": "22" }, { "age": "21" }, { "age": "32" }]
-
-var result = nameArr.map(function (e, i) {
-    return Object.assign({}, e, ageArr[i])
-})
-console.log(result)
-
-
-resultados = ()=> {
-ejemplo.imprimirttodosdatos()
-}
