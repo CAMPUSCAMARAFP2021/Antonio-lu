@@ -36,55 +36,84 @@ class MoviesDataProvider extends DataProvider {
         return movie;
     }
 
-    imprimirttodosdatos() {
-        var table = document.getElementById("tabla")
+    imprimirtabla() {
+        var table = this.creartabla()
         const pelisTitle = this.getMoviesWithGenres().then(respuesta => {
             respuesta.map(respuesta => {
-
-
-                var rowas =this.crearColumna(this.creartabla())
-                var src = respuesta.poster_path
-                var img = document.createElement('img')
-                img.src = this.linkimg + src
-                
-                src == null ? rowas.appendChild("no disponible en este momento") : rowas.appendChild(img)
-                
-                var row = this.crearCelda(rowas);
-                row.textContent = respuesta.original_title
-
-                var rowa = this.crearCelda(rowas);
-                respuesta.genre_ids[0] == undefined ? rowa.textContent = "No disponible" : rowa.textContent = respuesta.genre_ids[0].name
-
-                var rows = this.crearCelda(rowas);
-                respuesta.overview == "" ? rows.textContent = "No disponible" : rows.textContent = respuesta.overview
-                
-                var rows = this.crearCelda(rowas);
-                rows.textContent = respuesta.vote_average
-
-                var rows = this.crearCelda(rowas);
-                rows.textContent = respuesta.popularity
-                
-
+                var rowas = this.Img(table, respuesta);
+                this.Title(rowas, respuesta);
+                this.genres(rowas, respuesta);
+                var rows = this.overview(rowas, respuesta);
+                var rows = this.views(rows, rowas, respuesta);
+                var rows = this.popularity(rows, rowas, respuesta);
             })
         })
     }
 
-    creartabla (){
+    popularity(rows, rowas, respuesta) {
+        var rows = this.crearCelda(rowas);
+        rows.textContent = respuesta.popularity;
+        return rows;
+    }
+
+    views(rows, rowas, respuesta) {
+        var rows = this.crearCelda(rowas);
+        rows.textContent = respuesta.vote_average;
+        return rows;
+    }
+
+    overview(rowas, respuesta) {
+        var rows = this.crearCelda(rowas);
+        respuesta.overview == "" ? rows.textContent = "No disponible" : rows.textContent = respuesta.overview;
+        return rows;
+    }
+
+    genres(rowas, respuesta) {
+        var rowa = this.crearCelda(rowas);
+        respuesta.genre_ids[0] == undefined ? rowa.textContent = "No disponible" : rowa.textContent = respuesta.genre_ids[0].name;
+    }
+
+    Title(rowas, respuesta) {
+        var row = this.crearCelda(rowas);
+        row.textContent = respuesta.original_title;
+    }
+
+    Img(table, respuesta) {
+        var rowas = this.crearColumna(table);
+        var src = respuesta.poster_path;
+        var img = document.createElement('img');
+        img.src = this.linkimg + src;
+
+        src == null ? rowas.appendChild("no disponible en este momento") : rowas.appendChild(img);
+        return rowas;
+    }
+
+    eliminardatos() {
+        var table = document.getElementById('tabla')
+        table.remove()
+    }
+
+    async imprimirTitulo() {
+        var titulo = await this.getMoviesWithGenres().then(respuesta => respuesta.map(respus => respus.original_title));
+        return titulo
+    }
+
+    creartabla() {
         var table = document.createElement('table');
         table.id = 'tabla';
         table.border = '0px'
-        table.className="tbl-header"
+        table.className = "tbl-header"
         document.body.appendChild(table)
         return table
     }
-    crearColumna(table){
+    crearColumna(table) {
         var row = table.insertRow(0)
         return row
     }
-    crearCelda(columna){
+    crearCelda(columna) {
         var colum = columna.insertCell()
         return colum
     }
 }
 
-ejemplo = new MoviesDataProvider
+MoviesFind = new MoviesDataProvider
