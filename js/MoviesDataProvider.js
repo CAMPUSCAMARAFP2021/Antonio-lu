@@ -28,7 +28,7 @@ class MoviesDataProvider extends DataProvider {
 
     getMoviesWithGenres = async () => {
         const genres = await this.getGenres().then(({ genres }) => genres);
-        return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie, genres)))
     }
 
     attachGenresToMovie = (movie, genres) => {
@@ -38,17 +38,48 @@ class MoviesDataProvider extends DataProvider {
 
     imprimirtabla() {
         var table = this.creartabla()
-        const pelisTitle = this.getMoviesWithGenres().then(respuesta => {
-            respuesta.map(respuesta => {
-                var rowas = this.Img(table, respuesta);
-                this.Title(rowas, respuesta);
-                this.genres(rowas, respuesta);
-                var rows = this.overview(rowas, respuesta);
-                var rows = this.views(rows, rowas, respuesta);
-                var rows = this.popularity(rows, rowas, respuesta);
-            })
-        })
+        this.headers(table);
+        const pelisTitle = this.datosTabla(table)
     }
+
+    async datosTabla(table) {
+        const respuesta = await this.getMoviesWithGenres();
+        respuesta.map(respuesta_1 => {
+            var rowas = this.Img(table, respuesta_1);
+            this.Title(rowas, respuesta_1);
+            this.genres(rowas, respuesta_1);
+            var rows_3 = this.overview(rowas, respuesta_1);
+            var rows_3 = this.views(rows_3, rowas, respuesta_1);
+            var rows_3 = this.popularity(rows_3, rowas, respuesta_1);
+        });
+    }
+
+    headers(table) {
+        var header = this.newMethod(table);
+        header.textContent = "Imagen";
+
+        var header = this.newMethod(table);
+        header.textContent = "Titulo";
+
+        var header = this.newMethod(table);
+        header.textContent = "Genero";
+
+        var header = this.newMethod(table);
+        header.textContent = "Descripcion";
+
+        var header = this.newMethod(table);
+        header.textContent = "Media de votacion";
+
+        var header = this.newMethod(table);
+        header.textContent = "Popularidad";
+    }
+
+    newMethod(table) {
+        var header = document.createElement('th');
+        table.appendChild(header);
+        return header;
+    }
+
 
     popularity(rows, rowas, respuesta) {
         var rows = this.crearCelda(rowas);

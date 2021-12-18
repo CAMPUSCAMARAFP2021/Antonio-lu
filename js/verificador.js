@@ -1,6 +1,7 @@
-class verification extends MoviesDataProvider {
+class search extends MoviesDataProvider {
 
-    constructor(pelis)
+    
+    headers(){}
 
 
 }
