@@ -7,29 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="api.css">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico">
+
     <script lang= "javascript" src="js/dataprovider.js"></script>
+    <script src="js/MoviesDataProvider.js"></script>
+    <script src="js/verificador.js"></script>
+
     <title>PelisPlus</title>
 </head>
 <body>
   <h1>PeliPlus</h1>
   <form class="form-wrapper cf">
     <input type="text" name="buscador" id="buscador-top" placeholder="Search here..." required minlength="3">
-    <button type="button" value="Buscar" onclick=`${ejemplo.imprimirttodosdatos()}`>Search</button>
+    <button type="button" value="Buscar" onclick=`${MoviesFind.imprimirtabla()}`>Search</button>
 </form>
-  <br>
-  <br>
-  <div class="container">
-    <table id="tabla" border="0px" class="tbl-header">
-      <tr>
-        <td>Imagen</td>
-        <td>Titulo</td>
-        <td>Genero</td>
-        <td>Descripcion</td>
-        <td>Valoración</td>
-        <td>Popularidad</td>
-      </tr>
-    </table><br>
-  </div>
-  
+<br><br>
 </body>
 </html>
