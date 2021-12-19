@@ -28,7 +28,7 @@ class MoviesDataProvider extends DataProvider {
 
     getMoviesWithGenres = async () => {
         const genres = await this.getGenres().then(({ genres }) => genres);
-        return this.getMovies().then(({results}) => results.map(movie => this.attachGenresToMovie(movie, genres)))
+        return this.getMovies().then(({ results }) => results.map(movie => this.attachGenresToMovie(movie, genres)))
     }
 
     attachGenresToMovie = (movie, genres) => {
@@ -37,11 +37,23 @@ class MoviesDataProvider extends DataProvider {
     }
 
     imprimirtabla() {
+
         var table = this.creartabla()
+        if (table != null) {
+            this.borrar()
+        }
         this.headers(table);
         const pelisTitle = this.datosTabla(table)
     }
 
+    borrar() {
+        var table = document.getElementById("tabla");
+        var rows = table.getElementsByTagName("tr")
+        if (rows.length > 0) {
+            table.remove()
+        }
+
+    }
     async datosTabla(table) {
         const respuesta = await this.getMoviesWithGenres();
         respuesta.map(respuesta_1 => {
