@@ -1,6 +1,6 @@
 class tableFormat extends MoviesDataProvider{
 
-    creartabla() {
+    createTable() {
         var table = document.createElement('table');
         table.id = 'tabla';
         table.border = '0px'
@@ -8,23 +8,25 @@ class tableFormat extends MoviesDataProvider{
         document.body.appendChild(table)
         return table
     }
-    crearColumna(table) {
+    
+    createRow(table) {
         var row = table.insertRow(0);
         return row;
     }
-    crearCelda(columna) {
-        var colum = columna.insertCell();
+
+    createCell(cell) {
+        var colum = cell.insertCell();
         return colum;
     }
-    async datosTabla(table) {
-        const respuesta = await this.getMoviesWithGenres();
-        respuesta.map(respuesta_1 => {
-            var rowas = this.Img(table, respuesta_1);
-            this.Title(rowas, respuesta_1);
-            this.genres(rowas, respuesta_1);
-            var rows_3 = this.overview(rowas, respuesta_1);
-            var rows_3 = this.views(rows_3, rowas, respuesta_1);
-            var rows_3 = this.popularity(rows_3, rowas, respuesta_1);
+    async dataTable(table) {
+        const answer = await this.getMoviesWithGenres();
+        answer.map(answer_1 => {
+            var rowas = this.Img(table, answer_1);
+            this.Title(rowas, answer_1);
+            this.genres(rowas, answer_1);
+            var rows_3 = this.overview(rowas, answer_1);
+            var rows_3 = this.views(rows_3, rowas, answer_1);
+            var rows_3 = this.popularity(rows_3, rowas, answer_1);
         });
     }
 
