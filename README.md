@@ -32,5 +32,5 @@ Para hacer una prueba de nuestra **API** sigue estos pasos:
 ## Preview
 Este es el preview de nuestra tabla de peliculas.
 
-![](/img/Preview.PNG)
+![](/img/Preview_PelisPlus.PNG)
 
