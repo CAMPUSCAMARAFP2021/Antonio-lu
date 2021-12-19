@@ -1,5 +1,5 @@
 class printer extends tableFormat {
-    
+
     imprimirtabla() {
 
         var table = this.creartabla();
@@ -61,4 +61,5 @@ class printer extends tableFormat {
         return titulo;
     }
 }
+
 MoviesFind = new printer
