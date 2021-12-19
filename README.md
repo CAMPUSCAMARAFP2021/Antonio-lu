@@ -20,13 +20,7 @@ El proyecto contiene los siguiente ficheros:
 Clona nuestro repositorio cuando tengas estos prerequisitos:
 * WSL Linux **`La ultima version`**
 * Docker **`Instalado en el sistema`**
-* Version `>=BETA` de la API
-
-## Installation 🔧
-Para ejecutar nuestro proyecto deberas abrir una terminal y poner esto
-```bash
-docker-compose up
-```
+* Version `BETA` de la API
 
 ## Testing ⚙️
 Para hacer una prueba de nuestra **API** sigue estos pasos:
@@ -34,6 +28,7 @@ Para hacer una prueba de nuestra **API** sigue estos pasos:
 2. Abrir terminar y escribir este comando `docker compose up`
 3. Una vez hecho esto te vas al navegador y escribes `https://localhost:8086`
 4. Y a disfrutar de la **API**
+Para mas informacion acerca de la **API** [Documentacion](https://hub.docker.com/r/luciacalabrese/apimovies)
 
 ## Preview 📌
 Este es el preview de nuestra tabla de peliculas.
