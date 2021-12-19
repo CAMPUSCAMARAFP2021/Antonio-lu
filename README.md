@@ -24,9 +24,10 @@ Clona nuestro repositorio cuando tengas estos prerequisitos:
 
 ## Testing ⚙️
 Para hacer una prueba de nuestra **API** sigue estos pasos:
-1. Clonar nuestro repositorio en tu equipo `git clone https://github.com/CAMPUSCAMARAFP2021/Antonio-lu.git`
-2. Abrir terminar y escribir este comando `docker compose up`
-3. Una vez hecho esto te vas al navegador y escribes `https://localhost:8086`
+1. Abrir una terminal.
+1. Pullear nuestro repositorio en tu equipo `docker pull luciacalabrese/apimovies`
+2. Cuando termine, escribe este comando 'docker run -p 8080:80 luciacalabrese/apimovies:latest'
+3. Una vez hecho esto y termine de descargar el proyecto, abre el navegador y escribes `https://localhost:8080`
 4. Y a disfrutar de la **API**
 Para mas informacion acerca de la **API** [Documentacion](https://hub.docker.com/r/luciacalabrese/apimovies)
 
