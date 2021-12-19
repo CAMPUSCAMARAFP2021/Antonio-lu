@@ -10,14 +10,14 @@ class MoviesDataProvider extends DataProvider {
 
 
     getMovies() {
-        const peliUser = document.getElementById('buscador-top').value
-        const peliSearch = this.endPoints(this.endpoints.search, this.endpoints.query, peliUser)
-        return peliSearch
+        const movieUser = document.getElementById('buscador-top').value
+        const movieSearch = this.endPoints(this.endpoints.search, this.endpoints.query, movieUser)
+        return movieSearch
     }
 
     async getimg() {
-        const pelisTitle = await this.getMoviesWithGenres().then((respuesta) => respuesta.map(respuesta => respuesta.backdrop_path))
-        const img = this.endPoint(pelisTitle)
+        const moviesTitle = await this.getMoviesWithGenres().then((answer) => answer.map(answer => answer.backdrop_path))
+        const img = this.endPoint(moviesTitle)
         return img
     }
 
