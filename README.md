@@ -26,7 +26,7 @@ Clona nuestro repositorio cuando tengas estos prerequisitos:
 Para hacer una prueba de nuestra **API** sigue estos pasos:
 1. Abrir una terminal.
 1. Pullear nuestro repositorio en tu equipo `docker pull luciacalabrese/apimovies`
-2. Cuando termine, escribe este comando 'docker run -p 8080:80 luciacalabrese/apimovies:latest'
+2. Cuando termine, escribe este comando `docker run -p 8080:80 luciacalabrese/apimovies:latest`
 3. Una vez hecho esto y termine de descargar el proyecto, abre el navegador y escribes `https://localhost:8080`
 4. Y a disfrutar de la **API**
 Para mas informacion acerca de la **API** [Documentacion](https://hub.docker.com/r/luciacalabrese/apimovies)
