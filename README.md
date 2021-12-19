@@ -23,11 +23,11 @@ docker-compose up
 ```
 
 ## Testing 
-Para hacer una prueba de nuestra API sigue estos pasos:
+Para hacer una prueba de nuestra **API** sigue estos pasos:
 1. Clonar nuestro repositorio en tu equipo `git clone https://github.com/CAMPUSCAMARAFP2021/Antonio-lu.git`
 2. Abrir terminar y escribir este comando `docker compose up`
 3. Una vez hecho esto te vas al navegador y escribes `https://localhost:8086`
-4. Y a disfrutar de la *API*
+4. Y a disfrutar de la **API**
 
 ## Preview
 Este es el preview de nuestra tabla de peliculas.
